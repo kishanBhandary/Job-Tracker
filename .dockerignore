@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.agents
+.claude
+.cursor
+.devin
+README.md
+Dockerfile
+*.tsbuildinfo
+next-env.d.ts

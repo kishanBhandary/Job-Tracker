@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: careertrack-db
+    restart: always
+    environment:
+      POSTGRES_USER: kishan
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: careertrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: careertrack-web
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://kishan:password@db:5432/careertrack?schema=public"
+      SESSION_SECRET: "your-session-secret-key-32-chars-long"
+    depends_on:
+      - db
+    # Automatically synchronize the schema with db push on start before launching server
+    command: sh -c "npx prisma db push --accept-data-loss && node server.js"
+
+volumes:
+  postgres_data:
