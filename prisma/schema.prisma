@@ -1,0 +1,41 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String           @id @default(uuid())
+  supabaseUserId String           @unique
+  name           String
+  email          String           @unique
+  passwordHash   String?          // For mock auth fallback
+  avatarUrl      String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  applications   JobApplication[]
+}
+
+model JobApplication {
+  id            String    @id @default(uuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName   String
+  jobTitle      String
+  location      String?
+  jobType       String?
+  salary        String?
+  status        String
+  appliedDate   DateTime
+  interviewDate DateTime?
+  jobUrl        String?
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([userId])
+}
