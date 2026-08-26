@@ -133,12 +133,12 @@ export function DashboardClient({ user, stats, recent }: DashboardClientProps) {
           <h2 className="text-[32px] font-black text-neutral-950 tracking-tight leading-none">
             {getGreeting()}, {firstName}
           </h2>
-          <div className="flex items-center gap-2 mt-2.5">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-2.5">
             <span className="text-[14px] text-neutral-450 font-semibold leading-none">
               Here's a snapshot of your current job search.
             </span>
-            <span className="text-[13px] text-neutral-350 font-bold leading-none select-none">•</span>
-            <span className="text-[13px] text-neutral-400 font-bold leading-none">
+            <span className="hidden sm:inline text-[13px] text-neutral-350 font-bold leading-none select-none">•</span>
+            <span className="text-[13px] text-neutral-400 font-semibold sm:font-bold leading-none mt-1 sm:mt-0">
               {getFormattedDate()}
             </span>
           </div>
@@ -161,59 +161,59 @@ export function DashboardClient({ user, stats, recent }: DashboardClientProps) {
         <div className="flex flex-col gap-8">
           
           {/* Card Overview Grid (Hierarchy-aware layout) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             
             {/* Primary Dark Metric Card */}
-            <div className="bg-neutral-950 text-white rounded-2xl p-5 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-xl hover:shadow-neutral-950/10 text-left flex flex-col justify-between min-h-[120px] border border-neutral-900">
-              <div className="flex items-start justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Total Applications</span>
+            <div className="bg-neutral-950 text-white rounded-2xl p-4 sm:p-5 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-xl hover:shadow-neutral-950/10 text-left flex flex-col justify-between min-h-[120px] border border-neutral-900">
+              <div className="flex items-start justify-between gap-1.5">
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest truncate">Total Applications</span>
                   <span className="text-3xl font-extrabold text-white tracking-tight mt-1.5">{stats.total}</span>
                 </div>
-                <div className="w-9 h-9 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white shrink-0">
-                  <Briefcase size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white shrink-0">
+                  <Briefcase size={14} className="sm:w-4 sm:h-4" />
                 </div>
               </div>
               <span className="text-xs text-neutral-400 font-bold mt-2">+{addedThisMonth} added this month</span>
             </div>
 
             {/* Secondary Metric: Interviews */}
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-amber-500/5 text-left flex flex-col justify-between min-h-[120px]">
-              <div className="flex items-start justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Interviews</span>
+            <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 sm:p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-amber-500/5 text-left flex flex-col justify-between min-h-[120px]">
+              <div className="flex items-start justify-between gap-1.5">
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest truncate">Interviews</span>
                   <span className="text-3xl font-extrabold text-neutral-950 tracking-tight mt-1.5">{stats.screening + stats.interview}</span>
                 </div>
-                <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
-                  <Calendar size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+                  <Calendar size={14} className="sm:w-4 sm:h-4" />
                 </div>
               </div>
               <span className="text-xs text-neutral-450 font-bold mt-2">{responseRate}% response rate</span>
             </div>
 
             {/* Secondary Metric: Offers */}
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-emerald-500/5 text-left flex flex-col justify-between min-h-[120px]">
-              <div className="flex items-start justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Offers Received</span>
+            <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 sm:p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-emerald-500/5 text-left flex flex-col justify-between min-h-[120px]">
+              <div className="flex items-start justify-between gap-1.5">
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest truncate">Offers Received</span>
                   <span className="text-3xl font-extrabold text-emerald-600 tracking-tight mt-1.5">{stats.offer}</span>
                 </div>
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-                  <Award size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
+                  <Award size={14} className="sm:w-4 sm:h-4" />
                 </div>
               </div>
               <span className="text-xs text-neutral-450 font-bold mt-2">{offerRate}% conversion rate</span>
             </div>
 
             {/* Secondary Metric: Rejected */}
-            <div className="bg-white border border-neutral-200/80 rounded-2xl p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-rose-500/5 text-left flex flex-col justify-between min-h-[120px]">
-              <div className="flex items-start justify-between">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Rejections</span>
+            <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 sm:p-5 hover:border-neutral-300 transition-all duration-300 shadow-[0_2px_8px_rgba(0,0,0,0.01)] hover:shadow-xl hover:shadow-rose-500/5 text-left flex flex-col justify-between min-h-[120px]">
+              <div className="flex items-start justify-between gap-1.5">
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest truncate">Rejections</span>
                   <span className="text-3xl font-extrabold text-rose-600 tracking-tight mt-1.5">{stats.rejected}</span>
                 </div>
-                <div className="w-9 h-9 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
-                  <XCircle size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 shrink-0">
+                  <XCircle size={14} className="sm:w-4 sm:h-4" />
                 </div>
               </div>
               <span className="text-xs text-neutral-450 font-bold mt-2">{rejectedRate}% of total</span>
