@@ -44,10 +44,36 @@ export function Header({ user }: HeaderProps) {
   const handleLogout = async () => {
     const res = await signOutUser()
     if (res.success) {
-      router.push('/login')
-      router.refresh()
+      window.location.href = '/login?expired=1'
     }
   }
+
+  // Auto Logout after 15 minutes of inactivity
+  useEffect(() => {
+    const INACTIVITY_TIMEOUT = 15 * 60 * 1000 // 15 minutes
+    let timeoutId: NodeJS.Timeout
+
+    const resetTimer = () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => {
+        handleLogout()
+      }, INACTIVITY_TIMEOUT)
+    }
+
+    const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart']
+    activityEvents.forEach((event) => {
+      window.addEventListener(event, resetTimer)
+    })
+
+    resetTimer()
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      activityEvents.forEach((event) => {
+        window.removeEventListener(event, resetTimer)
+      })
+    }
+  }, [])
 
   const getInitials = (name: string) => {
     if (!name) return 'U'

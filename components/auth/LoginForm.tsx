@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
 import { signInUser } from '@/app/actions/auth'
 
@@ -13,6 +13,8 @@ export function LoginForm() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const expired = searchParams?.get('expired') === '1'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,6 +72,12 @@ export function LoginForm() {
           Register
         </button>
       </div>
+
+      {expired && (
+        <div className="p-3 bg-amber-50 border border-amber-250 text-amber-850 text-xs font-semibold rounded-lg text-left">
+          Session expired due to inactivity. Please sign in again.
+        </div>
+      )}
 
       {error && (
         <div className="p-3 bg-red-50 border border-red-200/60 text-red-650 text-xs font-medium rounded-lg">
